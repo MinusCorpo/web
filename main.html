@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MINUS Calendar - 入力のストレスをゼロに。</title>
+    <meta name="description" content="MINUSカレンダーは、AI技術を駆使して「予定を入れる」手間を極限まで削ぎ落とした次世代カレンダーアプリです。画像・音声・テキストから瞬時に予定を作成。">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ===== Main Page Specific Styles ===== */
+
+        /* Wide container for main page */
+        .container-wide {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 5rem 1rem 4rem;
+        }
+
+        .hero-app-icon {
+            width: 110px;
+            height: 110px;
+            border-radius: 28px;
+            object-fit: cover;
+            margin-bottom: 2rem;
+            box-shadow: 0 20px 50px -10px rgba(99, 102, 241, 0.5);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(99, 102, 241, 0.15);
+            border: 1px solid rgba(99, 102, 241, 0.4);
+            border-radius: 50px;
+            padding: 0.35rem 1rem;
+            font-size: 0.8rem;
+            color: var(--accent-primary);
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-badge::before {
+            content: '✦';
+            font-size: 0.7rem;
+        }
+
+        .hero-tagline {
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #fff 30%, #a5b4fc 70%, #c084fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            line-height: 1.8;
+        }
+
+        .hero-cta-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            color: white;
+            padding: 0.85rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 8px 25px -5px rgba(99, 102, 241, 0.5);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px -5px rgba(99, 102, 241, 0.6);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            padding: 0.85rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            border-color: rgba(99, 102, 241, 0.5);
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 3rem 0 5rem;
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-heading .eyebrow {
+            display: inline-block;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+
+        .section-heading h2 {
+            font-size: clamp(1.6rem, 3vw, 2.4rem);
+            font-weight: 700;
+            background: linear-gradient(to right, #fff, #cbd5e1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            border-bottom: none;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0;
+        }
+
+        .section-heading p {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* Feature Cards */
+        .feature-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .feature-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 2rem;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.3);
+            border-color: rgba(99, 102, 241, 0.3);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            border-radius: 14px;
+            font-size: 1.3rem;
+            margin-bottom: 1.25rem;
+            box-shadow: 0 8px 20px -5px rgba(99, 102, 241, 0.4);
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+            margin-top: 0;
+        }
+
+        .feature-card p {
+            font-size: 0.93rem;
+            color: var(--text-secondary);
+            line-height: 1.75;
+            margin-bottom: 0;
+        }
+
+        /* Audience Section */
+        .audience-section {
+            padding: 2rem 0 5rem;
+        }
+
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-top: 2.5rem;
+        }
+
+        .audience-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 1.25rem 1.5rem;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .audience-item:hover {
+            transform: translateX(4px);
+            border-color: rgba(99, 102, 241, 0.3);
+        }
+
+        .audience-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+            margin-top: 0.1rem;
+        }
+
+        .audience-item p {
+            margin-bottom: 0;
+            font-size: 0.93rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Divider */
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--border-color), transparent);
+            margin: 1rem 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .hero {
+                padding: 3rem 1rem 2rem;
+            }
+            .feature-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <div class="container-wide">
+        <!-- Global Navigation -->
+        <nav class="site-nav fade-in" style="display:flex; justify-content:flex-end; padding: 1.5rem 0; gap: 1.5rem;">
+            <a href="main.html" style="color: var(--text-primary); text-decoration: none; font-size: 0.9rem; font-weight: 600; padding: 0.4rem 0.8rem; border-radius: 8px; background: rgba(99,102,241,0.15); border: 1px solid rgba(99,102,241,0.3);">ホーム</a>
+            <a href="index.html" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; font-weight: 500; padding: 0.4rem 0.8rem; border-radius: 8px; transition: color 0.2s;" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">プライバシーポリシー</a>
+            <a href="terms.html" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; font-weight: 500; padding: 0.4rem 0.8rem; border-radius: 8px; transition: color 0.2s;" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-secondary)'">利用規約</a>
+        </nav>
+
+        <!-- Hero -->
+        <header class="hero fade-in">
+            <img src="img/icon_ios.png" alt="MINUS Calendar アプリアイコン" class="hero-app-icon">
+            <div class="hero-badge">Next-Gen Calendar App</div>
+            <h1 class="hero-tagline">入力のストレスを<br>ゼロ（MINUS）に。</h1>
+            <p class="hero-description">
+                MINUSカレンダーは、AI技術を駆使して「予定を入れる」手間を極限まで削ぎ落とした次世代カレンダーアプリです。
+            </p>
+            <div class="hero-cta-group">
+                <a href="#features" class="btn-primary" id="cta-features">
+                    <span>機能を見る</span>
+                    <span>↓</span>
+                </a>
+                <a href="https://apps.apple.com/" class="btn-secondary" id="cta-appstore" target="_blank" rel="noopener noreferrer">
+                    <span>📱</span>
+                    <span>App Store</span>
+                </a>
+            </div>
+        </header>
+
+        <div class="section-divider"></div>
+
+        <!-- Features Section -->
+        <section class="features-section" id="features">
+            <div class="section-heading fade-in">
+                <span class="eyebrow">3大爆速入力</span>
+                <h2>AIが、あなたの代わりに入力する。</h2>
+                <p>どんな形式の情報も、AIが瞬時に予定へ変換します。</p>
+            </div>
+
+            <div class="feature-cards">
+                <div class="feature-card fade-in">
+                    <div class="feature-number">📸</div>
+                    <h3>① 画像から作成</h3>
+                    <p>
+                        イベントのポスター、チラシ、スクリーンショット……。日時情報が含まれる画像を読み込ませるだけで、AIが自動で予定を抽出・作成します。
+                    </p>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="feature-number">🎙️</div>
+                    <h3>② 話しかけて作成</h3>
+                    <p>
+                        「金曜12時からカフェでランチ」「明日の会議を16時に変更して」と話しかけるだけ。作成、編集、削除まで声ひとつで完結します。
+                    </p>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="feature-number">📝</div>
+                    <h3>③ テキストから作成</h3>
+                    <p>
+                        メールの本文やチャットのコピーから予定を自動生成。複数の予定も一気に編集でき、色やラベルも自由自在です。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Audience Section -->
+        <section class="audience-section fade-in">
+            <div class="section-heading">
+                <span class="eyebrow">こんな方におすすめ</span>
+                <h2>あなたの毎日を、もっとラクに。</h2>
+            </div>
+
+            <div class="audience-grid">
+                <div class="audience-item">
+                    <span class="audience-icon">📅</span>
+                    <p>カレンダーへの手入力が面倒で挫折したことがある</p>
+                </div>
+                <div class="audience-item">
+                    <span class="audience-icon">📷</span>
+                    <p>イベントのチラシを写真に撮ったまま忘れがち</p>
+                </div>
+                <div class="audience-item">
+                    <span class="audience-icon">🎧</span>
+                    <p>移動中や家事の最中に、ハンズフリーで予定を管理したい</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p>© 2026 Minus Calendar. All rights reserved.</p>
+            <p style="margin-top: 0.75rem; font-size: 0.85rem;">
+                <a href="index.html" style="color: var(--text-secondary); text-decoration: none; margin: 0 0.75rem; transition: color 0.2s;" onmouseover="this.style.color='var(--accent-primary)'" onmouseout="this.style.color='var(--text-secondary)'">プライバシーポリシー</a>
+                <a href="terms.html" style="color: var(--text-secondary); text-decoration: none; margin: 0 0.75rem; transition: color 0.2s;" onmouseover="this.style.color='var(--accent-primary)'" onmouseout="this.style.color='var(--text-secondary)'">利用規約</a>
+            </p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Smooth scroll to features section
+        document.getElementById('cta-features').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('features').scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+</body>
+
+</html>
